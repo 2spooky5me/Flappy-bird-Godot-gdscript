@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://34yutral03mg"]
+
+[ext_resource type="Script" path="res://Scripts/obstacle.gd" id="1_b46sw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhwgm"]
+size = Vector2(16, 176)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tdjti"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jfbsa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuse5"]
+size = Vector2(64, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arhf8"]
+size = Vector2(64, 360)
+
+[node name="Node2D" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_b46sw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_rhwgm")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(40, 0)
+scale = Vector2(0.6, 8.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, -268)
+scale = Vector2(64, 360)
+texture = SubResource("CanvasTexture_tdjti")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(7.15256e-07, 280)
+scale = Vector2(64, 384)
+texture = SubResource("CanvasTexture_jfbsa")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 280)
+shape = SubResource("RectangleShape2D_kuse5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -268)
+shape = SubResource("RectangleShape2D_arhf8")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

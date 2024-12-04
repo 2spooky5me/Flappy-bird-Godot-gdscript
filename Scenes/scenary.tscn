@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgejo1m111lyq"]
+
+[ext_resource type="PackedScene" uid="uid://damunawm52pwq" path="res://Scenes/bird.tscn" id="1_ch3kr"]
+[ext_resource type="Script" path="res://Scripts/scenary.gd" id="1_ku7wa"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6ib5v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6g1j6"]
+size = Vector2(1168, 48)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ku7wa")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_ch3kr")]
+position = Vector2(80, 304)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 624)
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(576, 8.00001)
+scale = Vector2(1168, 48)
+texture = SubResource("CanvasTexture_6ib5v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 8)
+shape = SubResource("RectangleShape2D_6g1j6")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
