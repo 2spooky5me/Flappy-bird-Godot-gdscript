@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/scenary.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Game_State="*res://Scripts/gameState.gd"
+
 [layer_names]
 
 2d_physics/layer_1="Bird"

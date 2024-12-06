@@ -15,7 +15,7 @@ size = Vector2(64, 384)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arhf8"]
 size = Vector2(64, 360)
 
-[node name="Node2D" type="CharacterBody2D"]
+[node name="Node2D" type="CharacterBody2D" groups=["obstacle"]]
 collision_layer = 4
 script = ExtResource("1_b46sw")
 
@@ -47,4 +47,5 @@ shape = SubResource("RectangleShape2D_kuse5")
 position = Vector2(0, -268)
 shape = SubResource("RectangleShape2D_arhf8")
 
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
