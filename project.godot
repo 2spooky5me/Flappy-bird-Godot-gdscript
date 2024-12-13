@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Flappy Bird gdscript"
-run/main_scene="res://Scenes/scenary.tscn"
+run/main_scene="res://Scenes/world.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Game_State="*res://Scripts/gameState.gd"
+Game_State="*res://Scripts/game_state.gd"
 
 [layer_names]
 

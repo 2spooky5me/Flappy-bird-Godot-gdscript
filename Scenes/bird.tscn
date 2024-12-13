@@ -1,20 +1,152 @@
-[gd_scene load_steps=4 format=3 uid="uid://damunawm52pwq"]
+[gd_scene load_steps=15 format=3 uid="uid://damunawm52pwq"]
 
 [ext_resource type="Script" path="res://Scripts/bird.gd" id="1_24c5m"]
+[ext_resource type="Texture2D" uid="uid://dfi1snqi6tobq" path="res://Assets/Sprites/yellowbird-midflap.png" id="2_6oto1"]
+[ext_resource type="Texture2D" uid="uid://bvw77uj6gn206" path="res://Assets/Sprites/yellowbird-downflap.png" id="2_kst85"]
+[ext_resource type="AudioStream" uid="uid://c0riph33tbx6j" path="res://Assets/Sounds/wing.ogg" id="3_el4sa"]
+[ext_resource type="Texture2D" uid="uid://d0lsqwgwdsykq" path="res://Assets/Sprites/yellowbird-upflap.png" id="5_t1phe"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_q3r76"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_85fxg"]
+radius = 17.0294
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hf2dm"]
-size = Vector2(48, 48)
+[sub_resource type="Animation" id="Animation_j3eai"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_mtfuv"]
+resource_name = "crash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(4, 0), Vector2(-4, 0), Vector2(3, 0), Vector2(-3, 0), Vector2(2, 0), Vector2(-2, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2yng4"]
+resource_name = "fade_in"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hsg7o"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6boqr"]
+_data = {
+"RESET": SubResource("Animation_j3eai"),
+"crash": SubResource("Animation_mtfuv"),
+"fade_in": SubResource("Animation_2yng4"),
+"fade_out": SubResource("Animation_hsg7o")
+}
+
+[sub_resource type="Animation" id="Animation_hgvym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kst85")]
+}
+
+[sub_resource type="Animation" id="Animation_gbqyh"]
+resource_name = "flying"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_kst85"), ExtResource("2_6oto1"), ExtResource("5_t1phe"), ExtResource("2_6oto1"), ExtResource("2_kst85")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0amrs"]
+_data = {
+"RESET": SubResource("Animation_hgvym"),
+"flying": SubResource("Animation_gbqyh")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["bird"]]
+position = Vector2(-1, 0)
 collision_mask = 6
 script = ExtResource("1_24c5m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.19209e-06, -1.19209e-06)
-scale = Vector2(48, 48)
-texture = SubResource("CanvasTexture_q3r76")
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+scale = Vector2(1.64706, 1.75)
+texture = ExtResource("2_kst85")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_hf2dm")
+shape = SubResource("CircleShape2D_85fxg")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_el4sa")
+volume_db = -20.0
+max_polyphony = 5
+
+[node name="AnimFades" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6boqr")
+}
+autoplay = "fade_in"
+
+[node name="AnimFly" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0amrs")
+}
+autoplay = "flying"
+
+[connection signal="animation_finished" from="AnimFades" to="." method="_on_animation_player_animation_finished"]
